@@ -15,7 +15,7 @@ import Combine
 
 
 
-let betweenUnderscores = try! NSRegularExpression(pattern: "출력한다", options: []) //try는 왜 하는가, NSRegular... 은 뭐하는 건가, options가 비어있는건 옵션이 없는 건가 -> 이건 몰라, 저게 색 칠해주는 라이브러리 그대로 
+let betweenUnderscores = try! NSRegularExpression(pattern: "출력한다", options: []) //try는 왜 하는가, NSRegular... 은 뭐하는 건가, options가 비어있는건 옵션이 없는 건가
 
 let betweenUnderscores2 = try! NSRegularExpression(pattern: "더하기", options: [])
 let betweenUnderscores3 = try! NSRegularExpression(pattern: "곱하기", options: [])
@@ -52,7 +52,7 @@ let betweenUnderscores18 = try! NSRegularExpression(pattern: "->", options: [])
 
 
 struct ContentView: View {
-    @State var textSave = UserDefaults.standard.string(forKey: "maintext") //forkey는 무엇인가 -> 훈민정음에 저장 기능이 있는데, 텍스트 저장해 놓는 공간 이름을 forkey라고 하는거 같음
+    @State var textSave = UserDefaults.standard.string(forKey: "maintext") //forkey는 무엇인가
     @State var text = ""
     @State var result = ""
     @State var result1 = ""
@@ -67,7 +67,7 @@ struct ContentView: View {
     @State var i = 0
     @State var showTutorial : Bool = false
     @State var showError : Bool = false
-    @FocusState var isInputActive: Bool //focusstate가 무엇인가 -> 아이폰 UI 때문에 들어간건데 키보드가 입력상태인지 아닌지 확인하는 변수
+    @FocusState var isInputActive: Bool //focusstate가 무엇인가
 
     
     @State private var showing : Bool = false
@@ -79,8 +79,8 @@ struct ContentView: View {
     @State var declare : Bool = false
     
     
-    @AppStorage ("log_status") var logStatus: Bool = false //앱 저장소의 "log_status"라는 저장소에 logStatus라는 변수를 저장하는 것이 맞나 -> ㅇㅇ 맞을거임
-    @AppStorage("use_face_email") var faceIDEmail: String = "" //faceID를 도입할 것인가 -> 이미 도입 됨. 이게 터치아이디/faceID 구분 있는게 아니라 생체인증으로 통합되어있어서 faceID 있는 기기에서는 로그인 할때 faceID 작동함
+    @AppStorage ("log_status") var logStatus: Bool = false //앱 저장소의 "log_status"라는 저장소에 logStatus라는 변수를 저장하는 것이 맞나
+    @AppStorage("use_face_email") var faceIDEmail: String = "" //faceID를 도입할 것인가
     @AppStorage("use_face_password") var faceIDPassword: String = ""
     
     @ObservedObject var show : Show
@@ -95,7 +95,7 @@ struct ContentView: View {
     @Environment(\.managedObjectContext) private var viewContext
     
     @FetchRequest(entity: Dfunc.entity(), sortDescriptors: [])
-    var FD : FetchedResults<Dfunc> //함수 불러오는 코드인가 -> 그렇다고 보면 편할거 같은데, 이건 
+    var FD : FetchedResults<Dfunc> //함수 불러오는 코드인가
     
     
     
@@ -293,7 +293,7 @@ struct ContentView: View {
                                                 
                                                 
                                                 
-                                                indexfr.indexF = FD.map { $0.name ?? "" } //이건 뭐하는 거임 -> 이것도 마찬가지로 나중에
+                                                indexfr.indexF = FD.map { $0.name ?? "" } //이건 뭐하는 거임
                                                 indexfr.indexFC = FD.map { $0.fc ?? "" }
                                                 
                                                 
@@ -303,7 +303,7 @@ struct ContentView: View {
                                                     
                                                     
                                                     input.input = true
-                                                    Userinput(text: text) //이걸 여러번 하면 입력 여러 개 되는 거 아님? -> 결정적인 이유는 사실 벡엔드가 아니라 UI가 이상해서 포기한게 큼
+                                                    Userinput(text: text) //이걸 여러번 하면 입력 여러 개 되는 거 아님?
                                                     
                                                     
                                                     
@@ -312,7 +312,7 @@ struct ContentView: View {
                                                 }
                                                 else{
                                                     if text == ""{
-                                                        self.EA.errorArray.append("유효한 코드를 입력하지 않았습니다.") //어떠한 코드도 입력하지 않음 -> 
+                                                        self.EA.errorArray.append("유효한 코드를 입력하지 않았습니다.") //어떠한 코드도 입력하지 않음
                                                         show.error = true
                                                     }else{
                                                         if !(text.contains(".")){
@@ -381,7 +381,7 @@ struct ContentView: View {
                                                         
                                                         if finishpoint(text: text) == [] {
                                                             
-                                                            error = true //finishpoint에 저장된 값이 없으면 에러임? 변수 저장만 해도 에러임? -> 아닐걸? 왠지는 모름
+                                                            error = true //finishpoint에 저장된 값이 없으면 에러임? 변수 저장만 해도 에러임?
                                                             
                                                             
                                                         }else{
@@ -391,7 +391,7 @@ struct ContentView: View {
                                                                 resultF = ""
                                                                 
                                                             }else{
-                                                                resultF = finishpoint(text: text)[0] 
+                                                                resultF = finishpoint(text: text)[0] //왜 첫번째 단어만 resultF에 들어가나
                                                             }
                                                         }
                                                         
@@ -403,7 +403,7 @@ struct ContentView: View {
                                                         
                                                     }else{
                                                         while i != full{
-                                                            resultF = resultF + finishpoint(text: text)[i]
+                                                            resultF = resultF + finishpoint(text: text)[i]//왜 첫번째 단어를 두 번 넣는 거임?
                                                             i += 1
                                                             
                                                         }
@@ -413,24 +413,15 @@ struct ContentView: View {
                                                 
                                             }
                                             
-                                            
-                                            
-                                            
-                                            
-                                            
-                                            
-                                            
-                                            
-                                            Button{
+                                            Button{ //함수 선언 버튼
                                                 
                                                 declare = true
                                                 
                                             } label : {
                                                 
                                                 HStack{
-                                                    Image(systemName: "function")
+                                                    Image(systemName: "function") //systemName은 뭐임?
                                                         .foregroundColor(.white)
-                                                    
                                                     
                                                     Text("함수 선언")
                                                         .foregroundColor(.white)
@@ -446,11 +437,11 @@ struct ContentView: View {
                                                 
                                             }
                                             
-                                            Button {
+                                            Button { // 초기화 버튼
                                                 
                                                 result = ""
-                                                result1 = ""
-                                                resultF = finishpoint(text: ".")[0]
+                                                result1 = "" //1?
+                                                resultF = finishpoint(text: ".")[0] //어차피 입력이 . 하나인데 굳이 첫 번째 단어만 resultF에 넣는 이유가 뭐임?
                                       
                                                 i = 0
                                                 
@@ -461,8 +452,7 @@ struct ContentView: View {
                                                 HStack{
                                                     Image(systemName: "eraser.fill")
                                                         .foregroundColor(.white)
-                                                    
-                                                    
+            
                                                     Text("초기화")
                                                         .foregroundColor(.white)
                                                         .font(.system(size: 20, weight: .ultraLight))
@@ -472,10 +462,10 @@ struct ContentView: View {
                                                 .padding()
                                             }
                                             
-                                            Button {
+                                            Button { // 저장 버튼
                                                 
                                                 textSave = text
-                                                UserDefaults.standard.set(text, forKey: "maintext")
+                                                UserDefaults.standard.set(text, forKey: "maintext") //이건 뭐하는 거임
                                                 
                                             } label: {
                                                 HStack{
@@ -490,9 +480,9 @@ struct ContentView: View {
                                                     Spacer()
                                                 }
                                                 .padding()
-                                            }
+                                            }//저장하는 기능은 어딨음?
                                             
-                                            Button {
+                                            Button { //종료 버튼
                                                 
                                                 showing = true
                                                 
@@ -526,9 +516,9 @@ struct ContentView: View {
                                         
                                         if logStatus{
                                             
-                                            Button {
+                                            Button { //로그아웃버튼
                                                 try? Auth.auth().signOut()
-                                                logStatus = false
+                                                logStatus = false //signOut()이 안 되면 false로 하면 안 되는 것 아닌가
                                                 
                                                 withAnimation {
                                                     loginshow = true
@@ -550,7 +540,7 @@ struct ContentView: View {
                                             }
                                             
                                             
-                                            Button {
+                                            Button {//튜토리얼 버튼
                                                 
                                                 withAnimation {
                                                     showTutorial = true
@@ -576,9 +566,9 @@ struct ContentView: View {
                                             
                                             
                                         }
-                                        else{
+                                        else{ //로그인이 안 되어 있다면 로그인 하기
                                             
-                                            Button {
+                                            Button { //로그인 버튼
                                                 
                                                 
                                                 withAnimation {
@@ -602,7 +592,7 @@ struct ContentView: View {
                                             
                                             
                                             
-                                            Button {
+                                            Button {//튜토리얼 버튼. 그냥 로그인하기, 로그아웃하기 버튼만 if else로 묶고 튜토리얼을 한 번만 쓰면 되는 거 아님?
                                                 
                                                 withAnimation {
                                                     showTutorial = true
@@ -632,7 +622,7 @@ struct ContentView: View {
                                         
                                         
                                         Spacer()
-                                        Spacer()
+                                        Spacer() //이건 뭐임?
                                     }
                                     
                                 }
