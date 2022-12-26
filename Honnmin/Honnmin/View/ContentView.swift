@@ -15,8 +15,7 @@ import Combine
 
 
 
-let betweenUnderscores = try! NSRegularExpression(pattern: "출력한다", options: []) //try는 왜 하는가, NSRegular... 은 뭐하는 건가, options가 비어있는건 옵션이 없는 건가
-
+let betweenUnderscores = try! NSRegularExpression(pattern: "출력한다", options: []) //try는 왜 하는가, NSRegular... 은 뭐하는 건가, options가 비어있는건 옵션이 없는 건가 -> 이건 몰라, 저게 색 칠해주는 라이브러리 그대로
 let betweenUnderscores2 = try! NSRegularExpression(pattern: "더하기", options: [])
 let betweenUnderscores3 = try! NSRegularExpression(pattern: "곱하기", options: [])
 let betweenUnderscores4 = try! NSRegularExpression(pattern: "나누기", options: [])
@@ -52,7 +51,7 @@ let betweenUnderscores18 = try! NSRegularExpression(pattern: "->", options: [])
 
 
 struct ContentView: View {
-    @State var textSave = UserDefaults.standard.string(forKey: "maintext") //forkey는 무엇인가
+    @State var textSave = UserDefaults.standard.string(forKey: "maintext") //forkey는 무엇인가 -> 훈민정음에 저장 기능이 있는데, 텍스트 저장해 놓는 공간 이름을 forkey라고 하는거 같음
     @State var text = ""
     @State var result = ""
     @State var result1 = ""
@@ -67,8 +66,7 @@ struct ContentView: View {
     @State var i = 0
     @State var showTutorial : Bool = false
     @State var showError : Bool = false
-    @FocusState var isInputActive: Bool //focusstate가 무엇인가
-
+    @FocusState var isInputActive: Bool //focusstate가 무엇인가 -> 아이폰 UI 때문에 들어간건데 키보드가 입력상태인지 아닌지 확인하는 변수
     
     @State private var showing : Bool = false
     @State private var error : Bool = false
@@ -79,8 +77,8 @@ struct ContentView: View {
     @State var declare : Bool = false
     
     
-    @AppStorage ("log_status") var logStatus: Bool = false //앱 저장소의 "log_status"라는 저장소에 logStatus라는 변수를 저장하는 것이 맞나
-    @AppStorage("use_face_email") var faceIDEmail: String = "" //faceID를 도입할 것인가
+    @AppStorage ("log_status") var logStatus: Bool = false //앱 저장소의 "log_status"라는 저장소에 logStatus라는 변수를 저장하는 것이 맞나 -> ㅇㅇ 맞을거임
+    @AppStorage("use_face_email") var faceIDEmail: String = "" //faceID를 도입할 것인가 -> 이미 도입 됨. 이게 터치아이디/faceID 구분 있는게 아니라 생체인증으로 통합되어있어서 faceID 있는 기기에서는 로그인 할때 faceID 작동함
     @AppStorage("use_face_password") var faceIDPassword: String = ""
     
     @ObservedObject var show : Show
@@ -95,7 +93,7 @@ struct ContentView: View {
     @Environment(\.managedObjectContext) private var viewContext
     
     @FetchRequest(entity: Dfunc.entity(), sortDescriptors: [])
-    var FD : FetchedResults<Dfunc> //함수 불러오는 코드인가
+    var FD : FetchedResults<Dfunc> //함수 불러오는 코드인가 -> 그렇다고 보면 편할거 같은데, 이건
     
     
     
@@ -293,7 +291,7 @@ struct ContentView: View {
                                                 
                                                 
                                                 
-                                                indexfr.indexF = FD.map { $0.name ?? "" } //이건 뭐하는 거임
+                                                indexfr.indexF = FD.map { $0.name ?? "" } //이건 뭐하는 거임 -> 이것도 마찬가지로 나중에
                                                 indexfr.indexFC = FD.map { $0.fc ?? "" }
                                                 
                                                 
@@ -303,7 +301,7 @@ struct ContentView: View {
                                                     
                                                     
                                                     input.input = true
-                                                    Userinput(text: text) //이걸 여러번 하면 입력 여러 개 되는 거 아님?
+                                                    Userinput(text: text) //이걸 여러번 하면 입력 여러 개 되는 거 아님? -> 결정적인 이유는 사실 벡엔드가 아니라 UI가 이상해서 포기한게 큼
                                                     
                                                     
                                                     
@@ -312,7 +310,7 @@ struct ContentView: View {
                                                 }
                                                 else{
                                                     if text == ""{
-                                                        self.EA.errorArray.append("유효한 코드를 입력하지 않았습니다.") //어떠한 코드도 입력하지 않음
+                                                        self.EA.errorArray.append("유효한 코드를 입력하지 않았습니다.") //어떠한 코드도 입력하지 않음 ->
                                                         show.error = true
                                                     }else{
                                                         if !(text.contains(".")){
@@ -381,8 +379,8 @@ struct ContentView: View {
                                                         
                                                         if finishpoint(text: text) == [] {
                                                             
-                                                            error = true //finishpoint에 저장된 값이 없으면 에러임? 변수 저장만 해도 에러임?
-                                                            
+                                                            error = true //finishpoint에 저장된 값이 없으면 에러임? 변수 저장만 해도 에러임? -> 아닐걸? 왠지는 모름
+    //********************************************여기까지 함********************************************
                                                             
                                                         }else{
                                                             
@@ -764,7 +762,7 @@ struct ContentView: View {
         }
             
         
-        if UIDevice.current.userInterfaceIdiom == .phone{
+        if UIDevice.current.userInterfaceIdiom == .phone{ //아이폰 UI(자세히 보지는 않음)
             
             
             
@@ -1053,7 +1051,7 @@ struct ContentView: View {
         
         
     }
-    
+        
     struct NotificationModel {
         var title: String
         var content: String
@@ -1061,9 +1059,9 @@ struct ContentView: View {
     
     
     struct NotificationView: View {
-        var size: CGSize
-        @State var isExpanded: Bool = false
-        @State var notification: NotificationModel?
+        var size: CGSize //CGSize가 뭐임
+        @State var isExpanded: Bool = false //@State는 뭐임?
+        @State var notification: NotificationModel? //뭘 물어보는 거야
         var body: some View {
             HStack{
                 VStack(alignment: .leading) {
@@ -1076,7 +1074,7 @@ struct ContentView: View {
                     
                     
                     
-                    Text(notification?.content ?? "")
+                    Text(notification?.content ?? "") //물음표 왜 찍는 거임
                         .foregroundColor(.white)
                     
                     Spacer()
@@ -1115,7 +1113,7 @@ struct ContentView: View {
     
     
     
-    struct GrowingButton: ButtonStyle {
+    struct GrowingButton: ButtonStyle {//이건 뭐임
         func makeBody(configuration: Configuration) -> some View {
             configuration.label
                 .padding()
@@ -1129,8 +1127,8 @@ struct ContentView: View {
 
     
     
-    @ViewBuilder
-    func errorView() -> some View{
+    @ViewBuilder //이건 뭐임
+    func errorView() -> some View{ //some View가 뭐하는 거임 some View를 반환하는 거임? 근데 some View가 뭐임
         VStack{
             
             HStack{
@@ -1147,7 +1145,7 @@ struct ContentView: View {
             ScrollView {
                 
             
-            ForEach(self.EA.errorArray, id: \.self) {index in
+            ForEach(self.EA.errorArray, id: \.self) {index in //이렇게 줄바꿈 해도 됨? 그리고 \.self는 뭐임? 그리고 self.EA.errorArray에 있는 건 뭔가 모양이 있는 개체인 거임? 그래서 위치만 잡아주는 거임?
                 ZStack{
                     Rectangle()
                         .frame(maxWidth: .infinity)
@@ -1161,7 +1159,7 @@ struct ContentView: View {
                     
                     Text(index)
                         .foregroundColor(.white)
-                        .hLeading()
+                        .hLeading() //이건 뭐야
                         .offset(x : 25)
                     
                 }
@@ -1175,7 +1173,7 @@ struct ContentView: View {
  
     
    
-    func plus(text: String, line : Int) -> String {
+    func plus(text: String, line : Int) -> String { //더하기 함수
         var s = 0
         var t = 0
         var q = 0
@@ -1183,21 +1181,23 @@ struct ContentView: View {
         var replace = ""
         var P1 = 0
         var P2 = 0
-        var textindexs : String.Index = text.startIndex
+        var textindexs : String.Index = text.startIndex //이건 뭔 뜻임 특히 s t p q 는 뭐임
         var textindext : String.Index = text.startIndex
         var textindexp : String.Index = text.startIndex
         var textindexq : String.Index = text.startIndex
+        
+        //전역 변수 불러오기
         @EnvironmentObject var EA : ErrorList
         @EnvironmentObject var show : Show
         
-        if let rangeS = text.range(of: "("){
+        if let rangeS = text.range(of: "("){//괄호가 필요한 이유가 다중 연산 때문임?
             
             s = text.distance(from: text.startIndex, to: rangeS.lowerBound)
             
             
         }
         
-        if let rangeT = text.range(of: "더"){
+        if let rangeT = text.range(of: "더"){//'더'만 오면 뒤에 두 글자는 뭐가 와도 상관 없는 거임?
             
             
             t = text.distance(from: text.startIndex, to: rangeT.lowerBound)
@@ -1212,24 +1212,24 @@ struct ContentView: View {
             q = text.distance(from: text.startIndex, to: rangeQ.lowerBound)
         }
         
-        if (s + 1 > 0) && (t - 2 > 0) && (t + 4 > 0) && (q - 1 > 0) && (q  != t + 3) && (s != t - 2) {
+        if (s + 1 > 0) && (t - 2 > 0) && (t + 4 > 0) && (q - 1 > 0) && (q  != t + 3) && (s != t - 2) {//이게 뭐하는 거임? 그리고 t-2가 양수이면 당연히 t+4도 양수 아님?
             textindexs = text.index(text.startIndex, offsetBy: s+1)
             textindext = text.index(text.startIndex, offsetBy: t-2)
             textindexp = text.index(text.startIndex, offsetBy: t+4)
             textindexq = text.index(text.startIndex, offsetBy: q-1)
-            let range = text.index(text.startIndex, offsetBy: s) ..< text.index(text.startIndex, offsetBy: q+1)
+            let range = text.index(text.startIndex, offsetBy: s) ..< text.index(text.startIndex, offsetBy: q+1) //..< 이건 뭐임
             
         
             
-            if (Int(text[textindexs...textindext]) != nil) && (Int(text[textindexp...textindexq]) != nil){
-                P1 = Int(text[textindexs...textindext])!
+            if (Int(text[textindexs...textindext]) != nil) && (Int(text[textindexp...textindexq]) != nil){ //nil이 뭐임? null이랑 다름? int니까 i 들어가서 nil임?
+                P1 = Int(text[textindexs...textindext])! //느낌표는 뭐임?
                 P2 = Int(text[textindexp...textindexq])!
                 
                 replace = String(P1 + P2)
                 
-                textreturn = text.replacingOccurrences(of: text[range], with: replace)
+                textreturn = text.replacingOccurrences(of: text[range], with: replace)//text[range]가 만약 A,B를 더한다고 하면 "A+B" 전체를 replace로 바꾸는 거임?
             }
-            else{
+            else{//더하기 구문에 쓰인 수가 nil이 아닐 때
                 
                 replace = "error"
                 
@@ -1243,9 +1243,7 @@ struct ContentView: View {
                 
             }
 
-
-
-        }else{
+        }else{//뭔가 더하기 구문의 문법이 틀렸을 때
             
             if !self.EA.errorArray.contains("사칙 연산의 값이 입력되지 않았거나 띄어쓰기가 잘못되었습니다."){
                 self.EA.errorArray.append("사칙 연산의 값이 입력되지 않았거나 띄어쓰기가 잘못되었습니다.")
@@ -1256,32 +1254,14 @@ struct ContentView: View {
         }
     
         
-        
-       
-      
-        
-        
-        
-       
-        
-        
-        
-        
-        
-        
-        
-  
-        
-        
-        
-        
-        
         return textreturn
         
     }
     
     
-    func sub(text: String, line : Int) -> String {
+    
+    
+    func sub(text: String, line : Int) -> String { //빼기 함수
         var s = 0
         var t = 0
         var q = 0
@@ -1318,7 +1298,7 @@ struct ContentView: View {
             q = text.distance(from: text.startIndex, to: rangeQ.lowerBound)
         }
         
-        if (s + 1 > 0) && (t - 2 > 0) && (t + 3 > 0) && (q - 1 > 0) && (q  != t + 2) && (s != t - 2) {
+        if (s + 1 > 0) && (t - 2 > 0) && (t + 3 > 0) && (q - 1 > 0) && (q  != t + 2) && (s != t - 2) {//여기도 t-2>0이면 당연히 t+3>0 아님?, 그리고 t는 '빼'의 위치이고 Q는 )의 위치인데 q==t+2이면 "빼기)" 인 거임?
             textindexs = text.index(text.startIndex, offsetBy: s+1)
             textindext = text.index(text.startIndex, offsetBy: t-2)
             textindexp = text.index(text.startIndex, offsetBy: t+3)
@@ -1335,7 +1315,7 @@ struct ContentView: View {
                 
                 textreturn = text.replacingOccurrences(of: text[range], with: replace)
             }
-            else{
+            else{//정수가 아니라 다른 값이 주어졌을 때
                 
                 replace = "error"
                 if !self.EA.errorArray.contains("정수가 아닌 값을 연산할 수 없습니다."){
@@ -1349,7 +1329,7 @@ struct ContentView: View {
 
 
 
-        }else{
+        }else{ // 빼기 문법이 틀렸을 때
             self.EA.errorArray.append("사칙 연산의 값이 입력되지 않았거나 띄어쓰기가 잘못되었습니다.")
             
             self.show.error = true
@@ -1362,7 +1342,7 @@ struct ContentView: View {
     }
     
     
-    func mul(text: String, line : Int) -> String {
+    func mul(text: String, line : Int) -> String { //곱하기 함수. ->String은 String을 반환한다는 뜻임?
         var s = 0
         var t = 0
         var q = 0
@@ -1374,7 +1354,7 @@ struct ContentView: View {
         var textindext : String.Index = text.startIndex
         var textindexp : String.Index = text.startIndex
         var textindexq : String.Index = text.startIndex
-        @EnvironmentObject var EA : ErrorList
+        @EnvironmentObject var EA : ErrorList //에러 추가를 위해 전역변수 불러오기, 사실 불러와야 되는 거면 전역 변수가 아닌 것 아닌가?
         @EnvironmentObject var show : Show
         
         if let rangeS = text.range(of: "("){
@@ -1383,7 +1363,7 @@ struct ContentView: View {
             
             
         }
-        
+
         if let rangeT = text.range(of: "곱하기"){
             
             
@@ -1399,7 +1379,7 @@ struct ContentView: View {
             q = text.distance(from: text.startIndex, to: rangeQ.lowerBound)
         }
         
-        if (s + 1 > 0) && (t - 2 > 0) && (t + 4 > 0) && (q - 1 > 0) && (q  != t + 3) && (s != t - 2) {
+        if  (t - 2 > 0)  && (q - 1 > 0) && (q  != t + 3) && (s != t - 2) {
             textindexs = text.index(text.startIndex, offsetBy: s+1)
             textindext = text.index(text.startIndex, offsetBy: t-2)
             textindexp = text.index(text.startIndex, offsetBy: t+4)
@@ -1430,39 +1410,15 @@ struct ContentView: View {
             }
 
 
-
         }else{
             self.EA.errorArray.append("사칙 연산의 값이 입력되지 않았거나 띄어쓰기가 잘못되었습니다.")
             
             self.show.error = true
         }
-    
-        
-        
-       
-      
-        
-        
-        
-       
-        
-        
-        
-        
-        
-        
-        
-  
-        
-        
-        
-        
         
         return textreturn
         
     }
-    
-    
     
     
     
