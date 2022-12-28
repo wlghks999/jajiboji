@@ -1396,7 +1396,7 @@ struct ContentView: View {
                 
                 textreturn = text.replacingOccurrences(of: text[range], with: replace)
             }
-            else{
+            else{ //정수가 아닌 값이 입력되었을 때
                 
                 replace = "error"
                 if !self.EA.errorArray.contains("정수가 아닌 값을 연산할 수 없습니다."){
@@ -1410,7 +1410,7 @@ struct ContentView: View {
             }
 
 
-        }else{
+        }else{ //문법 오류
             self.EA.errorArray.append("사칙 연산의 값이 입력되지 않았거나 띄어쓰기가 잘못되었습니다.")
             
             self.show.error = true
@@ -1422,7 +1422,7 @@ struct ContentView: View {
     
     
     
-    func div(text: String, line : Int) -> String {
+    func div(text: String, line : Int) -> String { //나누기 함수
         var s = 0
         var t = 0
         var q = 0
@@ -1459,7 +1459,7 @@ struct ContentView: View {
             q = text.distance(from: text.startIndex, to: rangeQ.lowerBound)
         }
         
-        if (s + 1 > 0) && (t - 2 > 0) && (t + 4 > 0) && (q - 1 > 0) && (q  != t + 3) && (s != t - 2) {
+        if (s + 1 > 0) && (t - 2 > 0) && (q - 1 > 0) && (q  != t + 3) && (s != t - 2) {
             textindexs = text.index(text.startIndex, offsetBy: s+1)
             textindext = text.index(text.startIndex, offsetBy: t-2)
             textindexp = text.index(text.startIndex, offsetBy: t+4)
@@ -1472,8 +1472,8 @@ struct ContentView: View {
                 P1 = Int(text[textindexs...textindext])!
                 P2 = Int(text[textindexp...textindexq])!
                 
-                if P2 == 0 {
-                    textreturn = text.replacingOccurrences(of: text[range], with: "error")
+                if P2 == 0 { //0으로 나누는 오류 감지
+                    textreturn = text.replacingOccurrences(of: text[range], with: "error") //error을 출력한다는 거임?
                     if !self.EA.errorArray.contains("0으로 나눌 수 없습니다."){
                         self.EA.errorArray.append("0으로 나눌 수 없습니다")
                     }
@@ -1485,9 +1485,9 @@ struct ContentView: View {
                     textreturn = text.replacingOccurrences(of: text[range], with: replace)
                 }
             }
-            else{
+            else{ //정수가 아닌 값이 나누기 연산에 들어왔을 떄
                 
-                replace = "error"
+                replace = "error" //이건 왜 있는 거임? 이제 더 replace 쓰는 데가 없는 것 같은데
                 
                 if !self.EA.errorArray.contains("정수가 아닌 값을 연산할 수 없습니다."){
                     self.EA.errorArray.append("정수가 아닌 값을 연산할 수 없습니다.")
@@ -1500,7 +1500,7 @@ struct ContentView: View {
 
 
 
-        }else{
+        }else{ //문법 오류
             if !self.EA.errorArray.contains("사칙 연산의 값이 입력되지 않았거나 띄어쓰기가 잘못되었습니다."){
                 
                 self.EA.errorArray.append("사칙 연산의 값이 입력되지 않았거나 띄어쓰기가 잘못되었습니다.")
@@ -1515,7 +1515,7 @@ struct ContentView: View {
     }
     
     
-    func mod(text: String, line : Int) -> String {
+    func mod(text: String, line : Int) -> String { //나머지 반환 함수
         var s = 0
         var t = 0
         var q = 0
@@ -1552,7 +1552,7 @@ struct ContentView: View {
             q = text.distance(from: text.startIndex, to: rangeQ.lowerBound)
         }
         
-        if (s + 1 > 0) && (t - 2 > 0) && (t + 4 > 0) && (q - 1 > 0) && (q  != t + 3) && (s != t - 2) {
+        if (t - 2 > 0) && (q - 1 > 0) && (q  != t + 3) && (s != t - 2) {
             textindexs = text.index(text.startIndex, offsetBy: s+1)
             textindext = text.index(text.startIndex, offsetBy: t-2)
             textindexp = text.index(text.startIndex, offsetBy: t+4)
@@ -1565,10 +1565,10 @@ struct ContentView: View {
                 P1 = Int(text[textindexs...textindext])!
                 P2 = Int(text[textindexp...textindexq])!
                 
-                if P2 == 0{
+                if P2 == 0{ // 0으로 나눌 때의 나머지를 구하라고 할 때
                     textreturn = text.replacingOccurrences(of: text[range], with: "error")
-                    if !self.EA.errorArray.contains("정수가 아닌 값을 연산할 수 없습니다."){
-                        self.EA.errorArray.append("정수가 아닌 값을 연산할 수 없습니다.")
+                    if !self.EA.errorArray.contains("0으로 나눈 나머지는 구할 수 없습니다."){ //이걸 이렇게 할 게 아니라 줄 번호 포함해서 여러 번 에러를 띄워야지, errorArray 클래스에 줄 번호 attribute를 넣어라
+                        self.EA.errorArray.append("0으로 나눈 나머지는 구할 수 없습니다.")
                     }
                     self.show.error = true
                     
@@ -1579,7 +1579,7 @@ struct ContentView: View {
                     textreturn = text.replacingOccurrences(of: text[range], with: replace)
                 }
             }
-            else{
+            else{//정수가 아닌 수로 나머지 연산을 수행하려고 하면. 근데 15.23 같은 스트링이 있으면 Int 씌우면 15가 안 나옴? 15가 나오면 여기로 올 수가 없는데
                 
                 replace = "error"
                 if !self.EA.errorArray.contains("정수가 아닌 값을 연산할 수 없습니다."){
@@ -1593,7 +1593,7 @@ struct ContentView: View {
 
 
 
-        }else{
+        }else{//문법 오류
             if !self.EA.errorArray.contains("사칙 연산의 값이 입력되지 않았거나 띄어쓰기가 잘못되었습니다."){
                 
                 self.EA.errorArray.append("사칙 연산의 값이 입력되지 않았거나 띄어쓰기가 잘못되었습니다.")
@@ -1610,7 +1610,7 @@ struct ContentView: View {
     
     
     
-    func vari(text: String) -> [String]  {
+    func vari(text: String) -> [String]  { //변수를 선언하는 함수, [String]은 뭐임?
         let pattern: String = "(와|과)"
         var i = 0
         var s = 0
@@ -1621,7 +1621,7 @@ struct ContentView: View {
         
         
         
-        if let rangeP = text.range(of: "자 "){
+        if let rangeP = text.range(of: "자 "){ //if에 어떻게 선언문이 들어감? 무조건 true인가
             
             let p = text.distance(from: text.startIndex, to: rangeP.lowerBound)
             textindexA = text.index(text.startIndex, offsetBy: p+1)
@@ -2097,12 +2097,6 @@ struct ContentView: View {
         
         var indexR : [String] = []
         
-        
-        
-        
-        
-        
-        
         if let range = text.range(of: "("){
             
             s = text.distance(from: text.startIndex, to: range.lowerBound)
@@ -2114,7 +2108,7 @@ struct ContentView: View {
             t = text.distance(from: text.startIndex, to: range.lowerBound)
         }
         
-        if let range = text.range(of: "미"){
+        if let range = text.range(of: "미분"){
             
             p = text.distance(from: text.startIndex, to: range.lowerBound)
         }
@@ -2162,20 +2156,20 @@ struct ContentView: View {
     
     func ifRecognize(text : String) -> Bool{
         
-        var s = 0
-        var t = 0
-        var p = 0
-        var q = 0
+        var startPos = 0
+        var endPos = 0
+        var disToLeft = 0
+        var disToRight = 0
         var re : Bool = false
         
         
         if let range = text.range(of: "만약"){
-            t = text.distance(from: text.startIndex, to: range.lowerBound) + 3
+            startPos = text.distance(from: text.startIndex, to: range.lowerBound) + 3
         }
         
         if let range = text.range(of: "이면"){
             
-            s = text.distance(from: text.startIndex, to: range.lowerBound) - 2
+            endPos = text.distance(from: text.startIndex, to: range.lowerBound) - 2
         }
         
         
@@ -2184,93 +2178,85 @@ struct ContentView: View {
         
         
         
+        let condition1 = text.index(text.startIndex, offsetBy: startPos)
+        
+        let condition2 = text.index(text.startIndex, offsetBy: endPos)
         
         
-        let condition2 = text.index(text.startIndex, offsetBy: s)
-        
-        let condition1 = text.index(text.startIndex, offsetBy: t)
         let condition = String(text[condition1...condition2])
         
         
         if condition.contains("="){
+        
+            let range = condition.range(of: "=")
+            disToLeft = condition.distance(from: condition.startIndex, to: range!.lowerBound) - 2
+            
+            disToRight = condition.distance(from: condition.startIndex, to: range!.lowerBound) + 2
+            
+            let condition3 = condition.index(condition.startIndex, offsetBy: disToLeft)
+            
+            let condition4 = condition.index(condition.startIndex, offsetBy: disToRight)
+            
+            let conditionC1 = String(condition[condition.startIndex...condition3])
+            
+            let conditionC2 = String(condition[condition4..<condition.endIndex])
+            
+            if conditionC1 == conditionC2{
+                
+                re = true
+                
+            } else{
+                re = false
+            }
             
             
+        }
+        
+        if condition.contains("!="){ //!= 조건
+            let range = condition.range(of: "!=")
+            disToLeft = condition.distance(from: condition.startIndex, to: range!.lowerBound) - 2
             
-            if let range = condition.range(of: "="){
-                p = condition.distance(from: condition.startIndex, to: range.lowerBound) - 2
+            disToRight = condition.distance(from: condition.startIndex, to: range!.lowerBound) + 3
+            
+            let condition3 = condition.index(condition.startIndex, offsetBy: disToLeft)
                 
-                q = condition.distance(from: condition.startIndex, to: range.lowerBound) + 2
+            let condition4 = condition.index(condition.startIndex, offsetBy: disToRight)
                 
-                let condition3 = condition.index(condition.startIndex, offsetBy: p)
+            let conditionC1 = String(condition[condition.startIndex...condition3])
                 
-                let condition4 = condition.index(condition.startIndex, offsetBy: q)
+            let conditionC2 = String(condition[condition4..<condition.endIndex])
                 
-                let conditionC1 = String(condition[condition.startIndex...condition3])
-                
-                let conditionC2 = String(condition[condition4..<condition.endIndex])
-                
-                if conditionC1 == conditionC2{
+            if conditionC1 == conditionC2{
                     
-                    re = true
+                re = false
                     
-                } else{
-                    re = false
-                }
+            } else{
+                re = true
             }
             
         }
         
-        if condition.contains("!="){
+        if condition.contains(">"){ //부등호 조건
             
+            let range = condition.range(of: ">")
+            disToLeft = condition.distance(from: condition.startIndex, to: range!.lowerBound) - 2
             
+            disToRight = condition.distance(from: condition.startIndex, to: range!.lowerBound) + 2
             
-            if let range = condition.range(of: "!="){
-                p = condition.distance(from: condition.startIndex, to: range.lowerBound) - 2
-                
-                q = condition.distance(from: condition.startIndex, to: range.lowerBound) + 3
-                
-                let condition3 = condition.index(condition.startIndex, offsetBy: p)
-                
-                let condition4 = condition.index(condition.startIndex, offsetBy: q)
-                
-                let conditionC1 = String(condition[condition.startIndex...condition3])
-                
-                let conditionC2 = String(condition[condition4..<condition.endIndex])
-                
-                if conditionC1 == conditionC2{
-                    
-                    re = false
-                    
-                } else{
-                    re = true
-                }
-            }
+            let condition3 = condition.index(condition.startIndex, offsetBy: disToLeft)
             
-        }
-        
-        if condition.contains(">"){
+            let condition4 = condition.index(condition.startIndex, offsetBy: disToRight)
             
+            let conditionC1 = String(condition[condition.startIndex...condition3])
             
-            if let range = condition.range(of: ">"){
-                p = condition.distance(from: condition.startIndex, to: range.lowerBound) - 2
+            let conditionC2 = String(condition[condition4..<condition.endIndex])
+            
+            if Int(conditionC1) ?? 0 > Int(conditionC2) ?? 0{
                 
-                q = condition.distance(from: condition.startIndex, to: range.lowerBound) + 2
+                re = true
                 
-                let condition3 = condition.index(condition.startIndex, offsetBy: p)
-                
-                let condition4 = condition.index(condition.startIndex, offsetBy: q)
-                
-                let conditionC1 = String(condition[condition.startIndex...condition3])
-                
-                let conditionC2 = String(condition[condition4..<condition.endIndex])
-                
-                if Int(conditionC1) ?? 0 > Int(conditionC2) ?? 0{
-                    
-                    re = true
-                    
-                } else{
-                    re = false
-                }
+            } else{
+                re = false
             }
             
         }
@@ -2279,28 +2265,31 @@ struct ContentView: View {
         if condition.contains(">="){
             
             
-            if let range = condition.range(of: ">="){
-                p = condition.distance(from: condition.startIndex, to: range.lowerBound) - 2
-                
-                q = condition.distance(from: condition.startIndex, to: range.lowerBound) + 3
-                
-                let condition3 = condition.index(condition.startIndex, offsetBy: p)
-                
-                let condition4 = condition.index(condition.startIndex, offsetBy: q)
-                
-                let conditionC1 = String(condition[condition.startIndex...condition3])
-                
-                let conditionC2 = String(condition[condition4..<condition.endIndex])
-                
-                if Int(conditionC1) ?? 0 >= Int(conditionC2) ?? 0{
-                    
+            let range = condition.range(of: ">=")
+            disToLeft = condition.distance(from: condition.startIndex, to: range!.lowerBound) - 2
+            
+            disToRight = condition.distance(from: condition.startIndex, to: range!.lowerBound) + 3
+            
+            let condition3 = condition.index(condition.startIndex, offsetBy: disToLeft)
+            
+            let condition4 = condition.index(condition.startIndex, offsetBy: disToRight)
+            
+            let conditionC1 = String(condition[condition.startIndex...condition3])
+            
+            let conditionC2 = String(condition[condition4..<condition.endIndex])
+            
+            if let checkC1 = Int(conditionC1), let checkC2 = Int(conditionC2) {
+                if checkC1>=checkC2{
                     re = true
-                    
-                } else{
+                }
+                else{
                     re = false
                 }
+            } else{
+                self.EA.errorArray.append("조건문에 숫자가 아닌 다른 걸 넣음")
+                self.show.error = true
+                
             }
-            
         }
         
         if condition.contains("<"){
@@ -2309,24 +2298,29 @@ struct ContentView: View {
             
             
             if let range = condition.range(of: "<"){
-                p = condition.distance(from: condition.startIndex, to: range.lowerBound) - 2
+                disToLeft = condition.distance(from: condition.startIndex, to: range.lowerBound) - 2
                 
-                q = condition.distance(from: condition.startIndex, to: range.lowerBound) + 2
+                disToRight = condition.distance(from: condition.startIndex, to: range.lowerBound) + 2
                 
-                let condition3 = condition.index(condition.startIndex, offsetBy: p)
+                let condition3 = condition.index(condition.startIndex, offsetBy: disToLeft)
                 
-                let condition4 = condition.index(condition.startIndex, offsetBy: q)
+                let condition4 = condition.index(condition.startIndex, offsetBy: disToRight)
                 
                 let conditionC1 = String(condition[condition.startIndex...condition3])
                 
                 let conditionC2 = String(condition[condition4..<condition.endIndex])
                 
-                if Int(conditionC1) ?? 0 < Int(conditionC2) ?? 0{
-                    
-                    re = true
-                    
+                if let checkC1 = Int(conditionC1), let checkC2 = Int(conditionC2) {
+                    if checkC1<checkC2{
+                        re = true
+                    }
+                    else{
+                        re = false
+                    }
                 } else{
-                    re = false
+                    self.EA.errorArray.append("조건문에 숫자가 아닌 다른 걸 넣음")
+                    self.show.error = true
+                    
                 }
             }
             
@@ -2340,24 +2334,29 @@ struct ContentView: View {
             
             
             if let range = condition.range(of: "<="){
-                p = condition.distance(from: condition.startIndex, to: range.lowerBound) - 2
+                disToLeft = condition.distance(from: condition.startIndex, to: range.lowerBound) - 2
                 
-                q = condition.distance(from: condition.startIndex, to: range.lowerBound) + 3
+                disToRight = condition.distance(from: condition.startIndex, to: range.lowerBound) + 3
                 
-                let condition3 = condition.index(condition.startIndex, offsetBy: p)
+                let condition3 = condition.index(condition.startIndex, offsetBy: disToLeft)
                 
-                let condition4 = condition.index(condition.startIndex, offsetBy: q)
+                let condition4 = condition.index(condition.startIndex, offsetBy: disToRight)
                 
                 let conditionC1 = String(condition[condition.startIndex...condition3])
                 
                 let conditionC2 = String(condition[condition4..<condition.endIndex])
                 
-                if Int(conditionC1) ?? 0 <= Int(conditionC2) ?? 0{
-                    
-                    re = true
-                    
+                if let checkC1 = Int(conditionC1), let checkC2 = Int(conditionC2) {
+                    if checkC1<=checkC2{
+                        re = true
+                    }
+                    else{
+                        re = false
+                    }
                 } else{
-                    re = false
+                    self.EA.errorArray.append("조건문에 숫자가 아닌 다른 걸 넣음")
+                    self.show.error = true
+                    
                 }
             }
             
