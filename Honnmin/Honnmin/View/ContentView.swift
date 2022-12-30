@@ -1621,7 +1621,7 @@ struct ContentView: View {
         
         
         
-        if let rangeP = text.range(of: "자 "){ //if에 어떻게 선언문이 들어감? 무조건 true인가
+        if let rangeP = text.range(of: "자 "){ //키워드찾기
             
             let p = text.distance(from: text.startIndex, to: rangeP.lowerBound)
             textindexA = text.index(text.startIndex, offsetBy: p+1)
@@ -1647,9 +1647,9 @@ struct ContentView: View {
                 let regex = try NSRegularExpression(pattern: pattern, options: [])
                 let result = regex.matches(in: text, options: [], range: NSRange(location: 0, length: text.count))
                 
-                let rexStrings = result.map { (element) -> String in
+                let rexStrings = result.map { (element) -> String in //이건 뭐하는 거임?
                     let range = Range(element.range, in: text)!
-                 
+                
                     
                     
                     return String(text[range])
@@ -1687,7 +1687,7 @@ struct ContentView: View {
         
     }
     
-    func varir(text: String) -> [String] {
+    func varir(text: String) -> [String] { //변수 값 저장
         let pattern: String = "(와|과)"
         var i = 0
         var s = 0
@@ -1717,7 +1717,7 @@ struct ContentView: View {
                 
                 let rexStrings = result.map { (element) -> String in
                     let range = Range(element.range, in: text)!
-         
+        
                     
                     
                     return String(text[range])
@@ -1738,8 +1738,8 @@ struct ContentView: View {
                     
                 }
                 
-                indexR.append(sen.replacingOccurrences(of: " ", with: ""))
-             
+                indexR.append(sen.replacingOccurrences(of: " ", with: ""))//값을 저장하는데 변수 이름이랑 같은 indexR 배열 써도 되는 거임?
+            
             }
             
             
@@ -1789,7 +1789,7 @@ struct ContentView: View {
                 }
                 
                 indexR.append(sen.replacingOccurrences(of: " ", with: ""))
-           
+        
             }
             
             
@@ -1803,7 +1803,7 @@ struct ContentView: View {
     }
     
     
-    func Userinput(text: String) {
+    func Userinput(text: String) { //입력받는 함수
         let pattern: String = "(를 입력받는다|을 입력받는다)"
         var i = 0
         var s = 0
@@ -1815,31 +1815,26 @@ struct ContentView: View {
         
         
         if text.range(of: "입력받는다") != nil{
-            
-            
-            
-            if let rangeQ = text.range(of: "을 입력받는다"){
-                
+            if let rangeQ = text.range(of: "을 입") {
+                let q = text.distance(from: text.startIndex, to: rangeQ.lowerBound)
+                textindexB = text.index(text.startIndex, offsetBy: q-1)
+                sen = String(text[text.startIndex...textindexB])
+            } else if let rangeQ = text.range(of: "를 입") {
                 let q = text.distance(from: text.startIndex, to: rangeQ.lowerBound)
                 textindexB = text.index(text.startIndex, offsetBy: q-1)
                 sen = String(text[text.startIndex...textindexB])
             }
-            
-            if let rangeQ = text.range(of: "를 입력받는다"){
-                
-                let q = text.distance(from: text.startIndex, to: rangeQ.lowerBound)
-                textindexB = text.index(text.startIndex, offsetBy: q-1)
-                sen = String(text[text.startIndex...textindexB])
-            }
+
+
             
             
             
             
-            do {
+            do {//여기 do의 닫는 괄호가 whlie 앞이 아닌데? do-while이 아님?
                 let regex = try NSRegularExpression(pattern: pattern, options: [])
                 let result = regex.matches(in: text, options: [], range: NSRange(location: 0, length: text.count))
                 
-                let rexStrings = result.map { (element) -> String in
+                let rexStrings = result.map { (element) -> String in //in은 뭐임?
                     let range = Range(element.range, in: text)!
  
                     
@@ -1848,7 +1843,7 @@ struct ContentView: View {
                     
                     
                 }
-                while i != rexStrings.count {
+                while i != rexStrings.count {//i가 증가하며
                     
                     if let range = sen.range(of: rexStrings[i]){
                         print(sen)
@@ -1875,7 +1870,7 @@ struct ContentView: View {
             
         }
         
-        self.input.inputArray = indexR[0]
+        self.input.inputArray = indexR[0]//이건 뭐임?
         
         
     }
@@ -1883,7 +1878,7 @@ struct ContentView: View {
     
     
     
-    func variX(text: String) -> [String]  {
+    func variX(text: String) -> [String]  { //상수 변수를 저장
         let pattern: String = "(와|과)"
         var i = 0
         var s = 0
@@ -1902,10 +1897,7 @@ struct ContentView: View {
                 let q = text.distance(from: text.startIndex, to: rangeQ.lowerBound)
                 textindexB = text.index(text.startIndex, offsetBy: q-1)
                 sen = String(text[textindexA...textindexB])
-            }
-            
-            
-            if let rangeQ = text.range(of: "은"){
+            } else if let rangeQ = text.range(of: "은"){
                 
                 let q = text.distance(from: text.startIndex, to: rangeQ.lowerBound)
                 textindexB = text.index(text.startIndex, offsetBy: q-1)
@@ -1925,7 +1917,7 @@ struct ContentView: View {
          
                     
                     
-                    return String(text[range])
+                    return String(text[range])//선언문에서 변수가 몇번째 글자에 위치해 있는지 보는 거임?
                     
                     
                 }
@@ -1944,7 +1936,7 @@ struct ContentView: View {
                     
                 }
                 
-                indexR.append(sen.replacingOccurrences(of: " ", with: ""))
+                indexR.append(sen.replacingOccurrences(of: " ", with: ""))//변수 저장, 상수를 왜 변수랑 같은 배열에 넣음?
                
             }
             
@@ -1961,7 +1953,7 @@ struct ContentView: View {
         
     }
     
-    func varirX(text: String) -> [String] {
+    func varirX(text: String) -> [String] {//상수 변수 값 저장
         let pattern: String = "(와|과)"
         
         
@@ -2089,37 +2081,34 @@ struct ContentView: View {
         
     }
     
-    func mathD(text:String) -> String{
-        var s = 0
-        var t = 0
+    func mathDerivative(text:String) -> String{ //미분
+        var OpenBracPos = 0
+        var CloseBracPos = 0
         var i = 0
-        var p = 0
-        
+        var DeriWordPos = 0
+            
         var indexR : [String] = []
-        
+            
         if let range = text.range(of: "("){
-            
-            s = text.distance(from: text.startIndex, to: range.lowerBound)
+                
+            OpenBracPos = text.distance(from: text.startIndex, to: range.lowerBound)
         }
-        
-        
+            
+            
         if let range = text.range(of: ")"){
-            
-            t = text.distance(from: text.startIndex, to: range.lowerBound)
+                
+            CloseBracPos = text.distance(from: text.startIndex, to: range.lowerBound)
         }
-        
+            
         if let range = text.range(of: "미분"){
-            
-            p = text.distance(from: text.startIndex, to: range.lowerBound)
+                
+            DeriWordPos = text.distance(from: text.startIndex, to: range.lowerBound)
         }
-        
-        
-        
-        
-        let textindex1 = text.index(text.startIndex, offsetBy: s + 1)
-        let textindex2 = text.index(text.startIndex, offsetBy: t - 1)
-        let textindex3 = text.index(text.startIndex, offsetBy: p)
-        let textindex4 = text.index(text.startIndex, offsetBy: t)
+            
+        let textindex1 = text.index(text.startIndex, offsetBy: OpenBracPos + 1) //미분함수 문법이 어떻게 됨? 이거 인덱스 1~4까지 뭔지 썼으면 좋겠는데
+        let textindex2 = text.index(text.startIndex, offsetBy: CloseBracPos - 1)
+        let textindex3 = text.index(text.startIndex, offsetBy: DeriWordPos)
+        let textindex4 = text.index(text.startIndex, offsetBy: CloseBracPos)
         
         
         let Dtext = String(text[textindex1...textindex2])
@@ -2154,7 +2143,7 @@ struct ContentView: View {
         return text.replacingOccurrences(of: replace, with: indexR.joined(separator: " "))
     }
     
-    func ifRecognize(text : String) -> Bool{
+    func ifRecognize(text : String) -> Bool{ //만약 문 감지, splash2 받으면 합칠 것
         
         var startPos = 0
         var endPos = 0
@@ -2374,7 +2363,7 @@ struct ContentView: View {
         
     }
     
-    func ifNotRecognize(text : String) -> Bool{
+    func ifNotRecognize(text : String) -> Bool{ // 이거랑 같이 합칠 것
         
         var s = 0
         var t = 0
@@ -2505,14 +2494,14 @@ struct ContentView: View {
     }
     
     
-    class indexFR : ObservableObject {
+    class indexFR : ObservableObject { //이건 뭐임
         @Published var indexF = [String]()
         @Published var indexFC = [String]()
     }
     
     
     
-    class Value : ObservableObject{
+    class Value : ObservableObject{ //이건 뭐임
         @Published var const = [String]()
         @Published var constR = [String]()
         @Published var varI = [String]()
@@ -2524,14 +2513,14 @@ struct ContentView: View {
     
     
     
-    func finishpoint(text: String) -> [String]{
+    func finishpoint(text: String) -> [String]{// 실행 버튼 누르면 실행하는 함수
         
         var indexX = [String]()
         
         var i = 0
-        var Newtext = text
+        var Newtext = text//text가 아니라 InputCode이런게 더 직관적이지 않을까 이건 복사 붙여넣기도 못하네 하
         var errorcatchforConst = 0
-        var check1  : Bool = false
+        var check1  : Bool = false //이건 뭐하는 변수임? 값 대입만 하고 쓰질 않았다는데 일단 더 보겠음
         
         @EnvironmentObject var index : indexFR
         @EnvironmentObject var show : Show
@@ -2552,7 +2541,7 @@ struct ContentView: View {
         
         if Newtext.contains("만약"){
             
-            Newtext = ifcompile(text: Newtext)
+            Newtext = ifcompile(text: Newtext) //만약을 감지하면 ifcompile로
             
             
         }
@@ -2562,27 +2551,27 @@ struct ContentView: View {
         }
         
         else{
-            Newtext = Newtext.replacingOccurrences(of: "\n", with: "")
+            Newtext = Newtext.replacingOccurrences(of: "\n", with: "")//반복문이 없으면 코드 복사해서 붙여넣을 필요 없으니 한 줄로 합침
         }
         
         
         
         
         
-        indexX = Newtext.components(separatedBy: ".")
+        indexX = Newtext.components(separatedBy: ".")//입력받은 코드를 온점 기준(한 줄 기준)으로 나눔 이럴 거면 바로 위에서 줄바꿈 기호를 지울 필요 없이 이것만 해도 되는 거 아님?
         
         
         
         
-        while indexX.count != i + 1 {
+        while indexX.count != i + 1 {//.compenents(se....는 코드에 온점이 없으면 원래 텍스트를 반환함. 따라서 이 조건문은 온점 없는 코드 체크
             
             
             var k = 0
             
             
-            while k != indexfr.indexF.count {
+            while k != indexfr.indexF.count {//indexfr.indexF.count가 뭐임
                 
-                if indexX[i].contains(indexfr.indexF[k] + "()") {
+                if indexX[i].contains(indexfr.indexF[k] + "()") {//뭐하는 거임
                     indexX[i] = indexX[i].replacingOccurrences(of: indexfr.indexF[k] + "()", with: FPforFD(text: indexfr.indexFC[k]))
                     print("성공")
                 }
@@ -3016,7 +3005,7 @@ struct ContentView: View {
             
             
             if indexX[i].contains("미분"){
-                indexX[i] = mathD(text: indexX[i])
+                indexX[i] = mathDerivative(text: indexX[i])
             }
             
             
@@ -3350,7 +3339,7 @@ struct ContentView: View {
                 if !self.show.error{
                     
                     if (self.valueCV.varI.contains(vari(text: putsitem)[0])) || (self.valueCV.const.contains(vari(text: putsitem)[0])){
-                        self.EA.errorArray.append("두 개 이상의 값이 같은 이름으로 정의되었습니다6.")
+                        self.EA.errorArray.append("두 개 이상의 값이 같은 이름으로 정의되었습니다.")
                         self.show.error = true
                         
                     }else{
@@ -3587,7 +3576,7 @@ struct ContentView: View {
             
             
             if indexX[i].contains("미분"){
-                indexX[i] = mathD(text: indexX[i])
+                indexX[i] = mathDerivative(text: indexX[i])
             }
             
             
@@ -4113,7 +4102,7 @@ struct ContentView: View {
             
             
             if indexX[i].contains("미분"){
-                indexX[i] = mathD(text: indexX[i])
+                indexX[i] = mathDerivative(text: indexX[i])
             }
             
             
